@@ -22,8 +22,3 @@ jobs:
 
     - name: Run mutation test
       run: ./gradlew pitest
-
-    - name: Report to Coveralls
-      env:
-        COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
-      run: ./gradlew coveralls
