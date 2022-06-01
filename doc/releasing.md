@@ -22,19 +22,7 @@ Release candidate versions
 
     No tag body needed.
 
- 5. Publish to Sonatype Nexus:
-
-    ```
-    $ ./gradlew publishToSonatype closeAndReleaseSonatypeStagingRepository
-    ```
-
- 6. Wait for the artifacts to become downloadable at
-    https://repo1.maven.org/maven2/com/yubico/webauthn-server-core/ . This is
-    needed for one of the GitHub Actions release workflows and usually takes
-    less than 30 minutes (long before the artifacts become searchable on the
-    main Maven Central website).
-
- 7. Push to GitHub.
+ 5. Push to GitHub.
 
     If the pre-release makes significant changes to the project README, such
     that the README does not accurately reflect the latest non-pre-release
@@ -52,7 +40,7 @@ Release candidate versions
     $ git push origin main 1.4.0-RC1
     ```
 
- 8. Make GitHub release.
+ 6. Make GitHub release.
 
     - Use the new tag as the release tag
     - Check the pre-release checkbox
@@ -122,25 +110,13 @@ Release versions
 
     No tag body needed since that's included in the commit.
 
-10. Publish to Sonatype Nexus:
-
-    ```
-    $ ./gradlew publishToSonatype closeAndReleaseSonatypeStagingRepository
-    ```
-
-11. Wait for the artifacts to become downloadable at
-    https://repo1.maven.org/maven2/com/yubico/webauthn-server-core/ . This is
-    needed for one of the GitHub Actions release workflows and usually takes
-    less than 30 minutes (long before the artifacts become searchable on the
-    main Maven Central website).
-
-12. Push to GitHub:
+10. Push to GitHub:
 
     ```
     $ git push origin main 1.4.0
     ```
 
-13. Make GitHub release.
+11. Make GitHub release.
 
     - Use the new tag as the release tag
     - Copy the release notes from `NEWS` into the GitHub release notes; reformat

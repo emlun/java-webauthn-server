@@ -1,15 +1,12 @@
 plugins {
   id 'java-library'
   id 'scala'
-  id 'maven-publish'
   id 'signing'
   id 'info.solidsoft.pitest'
   id 'io.github.cosmicsilence.scalafix'
 }
 
 description = 'Yubico WebAuthn server core API'
-
-project.ext.publishMe = true
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
