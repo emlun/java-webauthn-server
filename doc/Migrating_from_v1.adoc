@@ -7,7 +7,7 @@ This guide aims to help migrating between versions.
 
 If you find this migration guide to be incomplete, incorrect,
 or otherwise difficult to follow, please
-link:https://github.com/Yubico/java-webauthn-server/issues/new[let us know!]
+link:https://github.com/emlun/java-webauthn-server/issues/new[let us know!]
 
 This is the migration guide for the core library.
 The `webauthn-server-attestation` module has

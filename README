@@ -4,8 +4,8 @@ java-webauthn-server
 :toc-placement: macro
 :toc-title:
 
-image:https://github.com/Yubico/java-webauthn-server/workflows/build/badge.svg["Build Status", link="https://github.com/Yubico/java-webauthn-server/actions"]
-image:https://github.com/Yubico/java-webauthn-server/actions/workflows/release-verify-signatures.yml/badge.svg["Binary reproducibility", link="https://github.com/Yubico/java-webauthn-server/actions/workflows/release-verify-signatures.yml"]
+image:https://github.com/emlun/java-webauthn-server/workflows/build/badge.svg["Build Status", link="https://github.com/emlun/java-webauthn-server/actions"]
+image:https://github.com/emlun/java-webauthn-server/actions/workflows/release-verify-signatures.yml/badge.svg["Binary reproducibility", link="https://github.com/emlun/java-webauthn-server/actions/workflows/release-verify-signatures.yml"]
 
 Server-side https://www.w3.org/TR/webauthn/[Web Authentication] library for
 Java. Provides implementations of the
@@ -152,7 +152,7 @@ The
 link:https://developers.yubico.com/java-webauthn-server/JavaDoc/webauthn-server-core/2.0.0/com/yubico/webauthn/CredentialRepository.html[`CredentialRepository`]
 interface abstracts your database in a database-agnostic way.
 The concrete implementation will be different for every project, but you can use
-link:https://github.com/Yubico/java-webauthn-server/blob/main/webauthn-server-demo/src/main/java/demo/webauthn/InMemoryRegistrationStorage.java[`InMemoryRegistrationStorage`]
+link:https://github.com/emlun/java-webauthn-server/blob/main/webauthn-server-demo/src/main/java/demo/webauthn/InMemoryRegistrationStorage.java[`InMemoryRegistrationStorage`]
 as a simple example.
 
 === 2. Instantiate a `RelyingParty`
@@ -515,14 +515,14 @@ effects, and does not directly interact with any database. This means it is
 database agnostic and thread safe. The following diagram illustrates an example
 architecture for an application using the library.
 
-image::https://raw.githubusercontent.com/Yubico/java-webauthn-server/main/docs/img/demo-architecture.svg?sanitize=true["Example application architecture",align="center"]
+image::https://raw.githubusercontent.com/emlun/java-webauthn-server/main/docs/img/demo-architecture.svg?sanitize=true["Example application architecture",align="center"]
 
 The application manages all state and database access, and communicates with the
 library via POJO representations of requests and responses. The following
 diagram illustrates the data flow during a WebAuthn registration or
 authentication ceremony.
 
-image::https://raw.githubusercontent.com/Yubico/java-webauthn-server/main/docs/img/demo-sequence-diagram.svg?sanitize=true["WebAuthn ceremony sequence diagram",align="center"]
+image::https://raw.githubusercontent.com/emlun/java-webauthn-server/main/docs/img/demo-sequence-diagram.svg?sanitize=true["WebAuthn ceremony sequence diagram",align="center"]
 
 In this diagram, the *Client* is the user's browser and the application's
 client-side scripts. The *Server* is the application and its business logic, the
@@ -670,7 +670,7 @@ $ ./gradlew :webauthn-server-core:jar
 $ wget https://repo1.maven.org/maven2/com/yubico/webauthn-server-core/1.4.0-RC2/webauthn-server-core-1.4.0-RC2.jar.asc
 $ gpg --verify webauthn-server-core-1.4.0-RC2.jar.asc webauthn-server-core/build/libs/webauthn-server-core-1.4.0-RC2.jar
 
-$ wget https://github.com/Yubico/java-webauthn-server/releases/download/1.4.0-RC2/webauthn-server-core-1.4.0-RC2.jar.asc
+$ wget https://github.com/emlun/java-webauthn-server/releases/download/1.4.0-RC2/webauthn-server-core-1.4.0-RC2.jar.asc
 $ gpg --verify webauthn-server-core-1.4.0-RC2.jar.asc webauthn-server-core/build/libs/webauthn-server-core-1.4.0-RC2.jar
 ----------
 
