@@ -15,8 +15,8 @@ jobs:
     - name: Download signatures from Maven Central
       timeout-minutes: 30
       run: |
-        until wget https://repo1.maven.org/maven2/com/yubico/webauthn-server-attestation/${{ github.ref_name }}/webauthn-server-attestation-${{ github.ref_name }}.jar.asc; do sleep 180; done
-        until wget https://repo1.maven.org/maven2/com/yubico/webauthn-server-core/${{ github.ref_name }}/webauthn-server-core-${{ github.ref_name }}.jar.asc; do sleep 180; done
+        until wget https://repo1.maven.org/maven2/com/yubico/webauthn-server-attestation/2.1.0-RC2/webauthn-server-attestation-2.1.0-RC2.jar.asc; do sleep 180; done
+        until wget https://repo1.maven.org/maven2/com/yubico/webauthn-server-core/2.1.0-RC2/webauthn-server-core-2.1.0-RC2.jar.asc; do sleep 180; done
 
     - name: Store keyring and signatures as artifact
       uses: actions/upload-artifact@v3
@@ -34,13 +34,13 @@ jobs:
     strategy:
       matrix:
         java: [17]
-        distribution: [temurin, zulu, microsoft]
+        distribution: [temurin]
 
     steps:
     - name: check out code
       uses: actions/checkout@v3
       with:
-        ref: ${{ github.ref_name }}
+        ref: 2.1.0-RC2
 
     - name: Set up JDK
       uses: actions/setup-java@v3
@@ -61,8 +61,8 @@ jobs:
 
     - name: Verify signatures from Maven Central
       run: |
-        gpg --no-default-keyring --keyring ./yubico.keyring --verify webauthn-server-attestation-${{ github.ref_name }}.jar.asc webauthn-server-attestation/build/libs/webauthn-server-attestation-${{ github.ref_name }}.jar
-        gpg --no-default-keyring --keyring ./yubico.keyring --verify webauthn-server-core-${{ github.ref_name }}.jar.asc webauthn-server-core/build/libs/webauthn-server-core-${{ github.ref_name }}.jar
+        gpg --no-default-keyring --keyring ./yubico.keyring --verify webauthn-server-attestation-2.1.0-RC2.jar.asc webauthn-server-attestation/build/libs/webauthn-server-attestation-2.1.0-RC2.jar
+        gpg --no-default-keyring --keyring ./yubico.keyring --verify webauthn-server-core-2.1.0-RC2.jar.asc webauthn-server-core/build/libs/webauthn-server-core-2.1.0-RC2.jar
 
   upload:
     name: Upload signatures to GitHub
@@ -78,8 +78,8 @@ jobs:
 
     - name: Upload signatures to GitHub
       run: |
-        RELEASE_DATA=$(curl -H "Authorization: Bearer ${{ github.token }}" ${{ github.api_url }}/repos/${{ github.repository }}/releases/tags/${{ github.ref_name }})
+        RELEASE_DATA=$(curl -H "Authorization: Bearer ${{ github.token }}" ${{ github.api_url }}/repos/${{ github.repository }}/releases/tags/2.1.0-RC2)
         UPLOAD_URL=$(jq -r .upload_url <<<"${RELEASE_DATA}" | sed 's/{?name,label}//')
 
-        curl -X POST -H "Authorization: Bearer ${{ github.token }}" -H 'Content-Type: text/plain' --data-binary @webauthn-server-attestation-${{ github.ref_name }}.jar.asc "${UPLOAD_URL}?name=webauthn-server-attestation-${{ github.ref_name }}.jar.asc"
-        curl -X POST -H "Authorization: Bearer ${{ github.token }}" -H 'Content-Type: text/plain' --data-binary @webauthn-server-core-${{ github.ref_name }}.jar.asc "${UPLOAD_URL}?name=webauthn-server-core-${{ github.ref_name }}.jar.asc"
+        curl -X POST -H "Authorization: Bearer ${{ github.token }}" -H 'Content-Type: text/plain' --data-binary @webauthn-server-attestation-2.1.0-RC2.jar.asc "${UPLOAD_URL}?name=webauthn-server-attestation-2.1.0-RC2.jar.asc"
+        curl -X POST -H "Authorization: Bearer ${{ github.token }}" -H 'Content-Type: text/plain' --data-binary @webauthn-server-core-2.1.0-RC2.jar.asc "${UPLOAD_URL}?name=webauthn-server-core-2.1.0-RC2.jar.asc"
