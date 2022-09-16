@@ -13,9 +13,6 @@ jobs:
         java: [17]
         distribution: [temurin]
 
-    permissions:
-      contents: write  # Allow uploading release artifacts
-
     steps:
     - name: check out code
       uses: actions/checkout@v3
@@ -47,9 +44,33 @@ jobs:
         gpg --no-default-keyring --keyring yubico --verify webauthn-server-attestation-2.1.0-RC2.jar.asc webauthn-server-attestation/build/libs/webauthn-server-attestation-2.1.0-RC2.jar
         gpg --no-default-keyring --keyring yubico --verify webauthn-server-core-2.1.0-RC2.jar.asc webauthn-server-core/build/libs/webauthn-server-core-2.1.0-RC2.jar
 
+    - name: Store signature files as artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: signatures-${{ matrix.distribution }}-${{ matrix.java }}
+        retention-days: 1
+        path: |
+          webauthn-server-attestation-2.1.0-RC2.jar.asc
+          webauthn-server-core-2.1.0-RC2.jar.asc
+
+  upload:
+    name: Upload signatures to GitHub
+    needs: verify
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write  # Allow uploading release artifacts
+
+    steps:
+    - name: Retrieve artifacts
+      uses: actions/download-artifact@v3
+      with:
+        name: signatures-temurin-17
+
     - name: Upload signatures to GitHub
-      if: matrix.distribution == 'temurin'
       run: |
+        ls -la
+
         RELEASE_DATA=$(curl -H "Authorization: Bearer ${{ github.token }}" ${{ github.api_url }}/repos/${{ github.repository }}/releases/tags/2.1.0-RC2)
         UPLOAD_URL=$(jq -r .upload_url <<<"${RELEASE_DATA}" | sed 's/{?name,label}//')
 
