@@ -1,8 +1,7 @@
 name: Reproducible binary
 
 on:
-  release:
-    types: [published]
+  push:
 
 jobs:
   verify:
