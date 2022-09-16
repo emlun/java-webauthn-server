@@ -50,5 +50,5 @@ jobs:
         RELEASE_DATA=$(curl -H "Authorization: Bearer ${{ github.token }}" ${{ github.api_url }}/repos/${{ github.repository }}/releases/tags/2.1.0-RC2)
         UPLOAD_URL=$(jq -r .upload_url <<<"${RELEASE_DATA}" | sed 's/{?name,label}//')
 
-        curl -X POST -H "Authorization: Bearer ${{ github.token }}" --data-binary @webauthn-server-attestation-2.1.0-RC2.jar.asc "${UPLOAD_URL}"
-        curl -X POST -H "Authorization: Bearer ${{ github.token }}" --data-binary @webauthn-server-core-2.1.0-RC2.jar.asc "${UPLOAD_URL}"
+        curl -X POST -H "Authorization: Bearer ${{ github.token }}" --data-binary @webauthn-server-attestation-2.1.0-RC2.jar.asc "${UPLOAD_URL}?name=webauthn-server-attestation-2.1.0-RC2.jar.asc"
+        curl -X POST -H "Authorization: Bearer ${{ github.token }}" --data-binary @webauthn-server-core-2.1.0-RC2.jar.asc "${UPLOAD_URL}?name=webauthn-server-core-2.1.0-RC2.jar.asc"
